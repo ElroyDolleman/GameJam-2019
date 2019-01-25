@@ -1,6 +1,4 @@
-﻿
-
-class Easing
+﻿class Easing
 {
     public static float EaseOutQuint(float start, float end, float value)
     {
