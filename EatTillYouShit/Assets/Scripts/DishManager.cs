@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodManager : MonoBehaviour
+public class DishManager : MonoBehaviour
 {
     [SerializeField]
     FoodDish servingDish;
