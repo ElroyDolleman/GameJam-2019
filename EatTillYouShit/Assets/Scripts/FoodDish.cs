@@ -20,6 +20,8 @@ public class FoodDish : MonoBehaviour
     public float startPosY = 7;
     public float endPosY { get { return -startPosY; } }
 
+    List<Food> foodList;
+
     private void OnValidate()
     {
         startPosY = transform.position.y;
@@ -29,6 +31,10 @@ public class FoodDish : MonoBehaviour
     void Start()
     {
         startPosY = transform.position.y;
+
+        foodList = new List<Food>();
+
+        ResetDish();
     }
 
     // Update is called once per frame
@@ -83,6 +89,31 @@ public class FoodDish : MonoBehaviour
     private void ResetDish()
     {
         ChangeYPos(startPosY);
+
+        DestroyOldFood();
+        RandomizeFood();
+    }
+
+    void DestroyOldFood()
+    {
+        for (int i = 0; i < foodList.Count; i++)
+        {
+            GameObject.Destroy(foodList[i].gameObject);
+            foodList.RemoveAt(i);
+            i--;
+        }
+    }
+
+    void RandomizeFood()
+    {
+        Food foodPrefab = FoodManager.instance.GetRandomFood(MenuTypes.starters);
+
+        Food newFood = GameObject.Instantiate(foodPrefab);
+
+        newFood.transform.SetParent(transform);
+        newFood.transform.localPosition = Vector3.zero;
+
+        foodList.Add(newFood);
     }
 
     void ChangeYPos(float y)
