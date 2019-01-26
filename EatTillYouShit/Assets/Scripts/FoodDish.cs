@@ -111,16 +111,63 @@ public class FoodDish : MonoBehaviour
 
     void RandomizeFood()
     {
+        for (int i = 0; i < 4; i++)
+        {
+            SpawnRandomFood();
+        }
+    }
+
+    bool CheckFoodOverlap(Food food)
+    {
+        Vector2 foodPos = (Vector2)food.transform.position + food.circleCollider.offset;
+
+        for (int i = 0; i < foodList.Count; i++)
+        {
+            Vector2 otherPos = (Vector2)foodList[i].transform.position + foodList[i].circleCollider.offset;
+
+            float dist = Vector2.Distance(otherPos, foodPos);
+            float radiusSum = foodList[i].circleCollider.radius + food.circleCollider.radius;
+
+            if (radiusSum > dist)
+                return true;
+        }
+
+        return false;
+    }
+
+    void SpawnRandomFood()
+    {
         Food foodPrefab = FoodManager.instance.GetRandomFood(MenuTypes.starters);
 
         Food newFood = GameObject.Instantiate(foodPrefab);
-
         newFood.transform.SetParent(transform);
 
-        float offX = Mathf.Abs(newFood.circleCollider.offset.x);
-        float offY = Mathf.Abs(newFood.circleCollider.offset.y);
+        // Brute force a location that doesn't overlap another food 
+        int safe = 0;
+        while(true)
+        {
+            PlaceFoodRandomly(newFood);
+
+            if (!CheckFoodOverlap(newFood))
+            {
+                break;
+            }
+            else if (safe++ > 1000)
+            {
+                Debug.LogWarning("Failed to place food at a correct place");
+                break;
+            }
+        }
+
+        foodList.Add(newFood);
+    }
+
+    void PlaceFoodRandomly(Food food)
+    {
+        float offX = Mathf.Abs(food.circleCollider.offset.x);
+        float offY = Mathf.Abs(food.circleCollider.offset.y);
         float extraOffset = Mathf.Max(offX, offY);
-        float maxRadius = circleCollider.radius - newFood.circleCollider.radius - extraOffset;
+        float maxRadius = circleCollider.radius - food.circleCollider.radius - extraOffset;
 
         float randomRadius = Random.Range(0, maxRadius);
         float randomAngle = Random.Range(0, Mathf.Deg2Rad * 360);
@@ -128,9 +175,7 @@ public class FoodDish : MonoBehaviour
         float rangeX = randomRadius * Mathf.Cos(randomAngle);
         float rangeY = randomRadius * Mathf.Sin(randomAngle);
 
-        newFood.transform.localPosition = new Vector3(rangeX, rangeY, 0);
-
-        foodList.Add(newFood);
+        food.transform.localPosition = new Vector3(rangeX, rangeY, 0);
     }
 
     void ChangeYPos(float y)
