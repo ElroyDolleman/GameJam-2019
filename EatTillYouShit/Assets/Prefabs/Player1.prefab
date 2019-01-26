@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSensitivity: 0.4
   actionSensitivity: 0.8
+  movementDelta: 10
 --- !u!50 &692672819
 Rigidbody2D:
   serializedVersion: 4

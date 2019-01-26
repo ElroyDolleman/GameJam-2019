@@ -23,7 +23,7 @@ public class Food : MonoBehaviour
             Debug.LogWarning("Food needs a CircleCollider2D component");
 
         if (outlineObject == null)
-            Debug.LogWarning("Food needs a CircleCollider2D component");
+            Debug.LogWarning("Food needs an Outline Object");
         else
             outlineObject.SetActive(false);
     }

@@ -6,6 +6,8 @@ public class HandController : MonoBehaviour
 {
     public float movementSensitivity = 1;
     public float actionSensitivity = 0.8f;
+    public float movementDelta = 1;
+
     private PlayerObject player;
     private int playerID;
 
@@ -22,6 +24,8 @@ public class HandController : MonoBehaviour
     private int lastFrame = 0;
     private bool scored = false;
 
+    private Vector3 originalPos;
+
     private void Start()
     {
         cam = Camera.main;
@@ -31,6 +35,7 @@ public class HandController : MonoBehaviour
         playerAction = "ActionPlayer" + playerID;
         player = GetComponent<PlayerObject>();
         foodInteractObject = GetComponent<FoodInteract>();
+        originalPos = transform.position;
     }
 
     private void Update()
@@ -65,6 +70,9 @@ public class HandController : MonoBehaviour
         if (!scored)
         {
             CheckInput();
+        } else
+        {
+            StartCoroutine(MoveArmBack());
         }
 
         //}
@@ -80,6 +88,8 @@ public class HandController : MonoBehaviour
                 //player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
                 player.AddFood(target);
                 scored = true;
+                target.transform.SetParent(transform);
+                //StartCoroutine(MoveArmBack());
             }
         }
     }
@@ -96,5 +106,14 @@ public class HandController : MonoBehaviour
         lastAxisState = currentAxisState;
 
         return currentAxisState;
+    }
+
+    IEnumerator MoveArmBack()
+    {
+        while (Vector3.Distance(transform.position, originalPos) > 0.001f) {
+            transform.position = Vector3.MoveTowards(transform.position, originalPos, movementDelta * Time.deltaTime);
+            yield return null;
+        }
+        yield return null;
     }
 }
