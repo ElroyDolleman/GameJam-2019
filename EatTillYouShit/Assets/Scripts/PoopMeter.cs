@@ -28,6 +28,9 @@ public class PoopMeter : MonoBehaviour
     bool popupDone = false;
     bool scaleAway = false;
 
+    float shakePoint;
+    public bool stayVisible = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,18 @@ public class PoopMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (stayVisible) return;
+
+        if (isFull)
+        {
+            // Shake that poop
+            var p = transform.position;
+            p.x = shakePoint + Random.Range(-0.1f, 0.1f);
+            transform.position = p;
+
+            return;
+        }
+
         if (scaleAway)
         {
             ScaleAwayUpdate();
@@ -57,7 +72,6 @@ public class PoopMeter : MonoBehaviour
             return;
         }
 
-        if (isFull) return;
         if (updateToPoopValue > maxPoopValue) updateToPoopValue = maxPoopValue;
 
         currentPoopValue = Easing.EaseOutQuint(fromPoopValue, updateToPoopValue, easing += Time.deltaTime * fillSpeed);
@@ -74,6 +88,7 @@ public class PoopMeter : MonoBehaviour
         {
             Debug.Log("It's time to take a shit!");
             easing = 0;
+            shakePoint = transform.position.x;
         }
     }
 
