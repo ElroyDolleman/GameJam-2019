@@ -146,9 +146,7 @@ public class HandController : MonoBehaviour
         do
         {
             if (target == null)
-            {
                 yield break;
-            }
 
             while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)
             {
