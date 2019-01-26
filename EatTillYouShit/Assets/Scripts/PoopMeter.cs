@@ -65,7 +65,7 @@ public class PoopMeter : MonoBehaviour
 
     public void AddPoop(int amountOfPoopToAdd)
     {
-        Debug.Log("Added Score" + amountOfPoopToAdd);
+        Debug.Log("Added Score" + amountOfPoopToAdd); //
         updateToPoopValue += (float)amountOfPoopToAdd;
         fromPoopValue = currentPoopValue;
         easing = 0;
