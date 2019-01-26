@@ -48,41 +48,47 @@ public class ScoreManager : MonoBehaviour
             }
             else if (eventsReceived >= 1)
             {
-                //start timer;
-                //if (!timerStarted)
-                //{
-                //    Debug.Log("ScoreManager: timer started");
-                //    timerStarted = true;
-                //    startTime = Time.time;
-                //}
-                startTime += Time.deltaTime;
+                if (!timerStarted)
+                {
+                    Debug.Log("ScoreManager: timer started");
+                    timerStarted = true;
+                    startTime = Time.time;
+                }
                 //when timer = 0
                 Debug.Log("ScoreManager: is time passed? " + ((startTime + decisionTime) == Time.time));
-                //if (Time.time == (startTime + decisionTime)) {
-                if (startTime > 5f) { 
+                if (Time.time >= (startTime + decisionTime)) {
+                //if (startTime > 5f) { 
                     Food target = null;
-                    foreach (Food f in FindObjectsOfType<Food>())
+                    foreach (Food f in DishManager.GetCurrentFood())
                     {
                         if (!f.isTaken)
                         {
                             target = f;
                         }
                     }
+                    //if (target.GetComponent<Renderer>().isVisible)
+                    //{
                     if (!p1Received)
                     {
-                        player1.GetComponent<HandController>().TakeFood(target);
-                    } else if (!p2Received)
-                    {
-                        player2.GetComponent<HandController>().TakeFood(target);
+                        StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
+                        //player1.GetComponent<HandController>().TakeFood(target);
                     }
-                    else if (!p3Received)
+                    if (!p2Received)
                     {
-                        player3.GetComponent<HandController>().TakeFood(target);
+                        StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
+                        //player2.GetComponent<HandController>().TakeFood(target);
                     }
-                    else if (!p4Received)
+                    if (!p3Received)
                     {
-                        player4.GetComponent<HandController>().TakeFood(target);
+                        StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
+                        //player3.GetComponent<HandController>().TakeFood(target);
                     }
+                    if (!p4Received)
+                    {
+                        StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
+                        //player4.GetComponent<HandController>().TakeFood(target);
+                    }
+                    //}
                 }
             }
         //}
@@ -126,6 +132,10 @@ public class ScoreManager : MonoBehaviour
     {
         eventsReceived = 0;
         timerStarted = false;
+        p1Received = false;
+        p2Received = false;
+        p3Received = false;
+        p4Received = false;
         Debug.Log("ScoreManager: event fired \"EVERYONE_DONE\"");
         EventManager.TriggerEvent("EVERYONE_DONE");
     }
