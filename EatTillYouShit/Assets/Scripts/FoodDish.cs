@@ -108,8 +108,11 @@ public class FoodDish : MonoBehaviour
 
     void RandomizeFood()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < PoopMeter.poopMeters.Count; i++)
         {
+            if (PoopMeter.poopMeters[i].isFull)
+                continue;
+
             SpawnRandomFood();
         }
 

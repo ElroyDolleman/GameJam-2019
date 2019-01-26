@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class PoopMeter : MonoBehaviour
 {
+    public static List<PoopMeter> poopMeters;
+
+    public static int nonPoopers
+    {
+        get
+        {
+            int count = 0;
+            for (int i = 0; i < poopMeters.Count; i++)
+            {
+                if (!poopMeters[i].isFull)
+                    count++;
+            }
+
+            return count;
+        }
+    }
+
     [SerializeField]
     Transform poopFillTransform;
     [SerializeField]
@@ -35,6 +52,13 @@ public class PoopMeter : MonoBehaviour
 
     float shakePoint;
     public bool stayVisible = false;
+
+    private void Awake()
+    {
+        if (poopMeters == null)
+            poopMeters = new List<PoopMeter>();
+        poopMeters.Add(this);
+    }
 
     // Start is called before the first frame update
     void Start()

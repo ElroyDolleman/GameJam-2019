@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 19
   m_Sprite: {fileID: 21300000, guid: 4d1278784341a454c9c53e5640fef081, type: 3}
-  m_Color: {r: 1, g: 0.6745283, b: 0.6745283, a: 1}
+  m_Color: {r: 0.28773582, g: 1, b: 0.48668766, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -255,8 +255,6 @@ MonoBehaviour:
   poopFillTransform: {fileID: 5515860640411518380}
   fillRenderer: {fileID: 5515860640411518381}
   endFillPosY: 0.1
-  fromFillColor: {r: 0.6365312, g: 1, b: 0.36320752, a: 1}
-  toFillColor: {r: 33.122177, g: 5.760379, b: 5.280347, a: 1}
   stayVisible: 0
 --- !u!1 &6286508249444361622
 GameObject:

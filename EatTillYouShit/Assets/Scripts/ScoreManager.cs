@@ -53,7 +53,7 @@ public class ScoreManager : MonoBehaviour
     {
         //if (Time.frameCount % interval == 0)
         //{
-        if (eventsReceived >= 4)
+        if (eventsReceived >= PoopMeter.nonPoopers)
         {
             EveryoneDone();
         }
