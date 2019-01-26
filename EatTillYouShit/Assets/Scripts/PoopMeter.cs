@@ -7,7 +7,12 @@ public class PoopMeter : MonoBehaviour
     [SerializeField]
     Transform poopFillTransform;
     [SerializeField]
+    SpriteRenderer fillRenderer;
+    [SerializeField]
     float endFillPosY = -0.07f;
+
+    Color fromFillColor = new Color(161f / 255f, 255f / 255f, 84f / 255f);
+    Color toFillColor = new Color(138f / 255f, 24f / 255f, 22f / 255f);
 
     float poopFillStartPosY = 0;
 
@@ -41,6 +46,8 @@ public class PoopMeter : MonoBehaviour
         poopFillTransform.localPosition = pos;
 
         transform.localScale = new Vector3(0, 0, 1);
+
+        UpdateColor();
     }
 
     // Update is called once per frame
@@ -74,11 +81,14 @@ public class PoopMeter : MonoBehaviour
 
         if (updateToPoopValue > maxPoopValue) updateToPoopValue = maxPoopValue;
 
-        currentPoopValue = Easing.EaseOutQuint(fromPoopValue, updateToPoopValue, easing += Time.deltaTime * fillSpeed);
+        easing = Mathf.Min(easing + Time.deltaTime * fillSpeed, 1);
+        currentPoopValue = Easing.EaseOutQuint(fromPoopValue, updateToPoopValue, easing);
 
         currentPoopValue = Mathf.Min(currentPoopValue, updateToPoopValue);
 
         float progress = 1 - currentPoopValue / maxPoopValue;
+
+        UpdateColor();
 
         var pos = poopFillTransform.localPosition;
         pos.y = poopFillStartPosY * progress - endFillPosY;
@@ -90,6 +100,11 @@ public class PoopMeter : MonoBehaviour
             easing = 0;
             shakePoint = transform.position.x;
         }
+    }
+
+    void UpdateColor()
+    {
+        fillRenderer.color = Color.Lerp(fromFillColor, toFillColor, currentPoopValue / maxPoopValue);
     }
 
     void StartScaleOut()
