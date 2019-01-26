@@ -143,6 +143,7 @@ public class HandController : MonoBehaviour
     public IEnumerator Automatic(Food target)
     {
         bool succes = false;
+        Debug.Log(target + "--- targett");
         do
         { 
             while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)

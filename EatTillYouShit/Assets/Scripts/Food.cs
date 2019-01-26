@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    public float poopValue;
+    public int poopValue;
     public GameObject outlineObject;
 
     [NonSerialized]

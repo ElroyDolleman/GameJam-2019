@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerObject : MonoBehaviour
 {
     public int playerID;
-    private float score = 0;
+    public PoopMeter poopMeter;
+    private int score = 0;
 
     public float GetScore()
     {
@@ -19,8 +20,9 @@ public class PlayerObject : MonoBehaviour
 
     public void AddFood(Food data)
     {
-        Debug.Log("Player" + playerID + " scored some points");
+        Debug.Log("Player --" + data.name);
         EventManager.TriggerEvent("SCORED_PLAYER" + playerID);
         score = data.poopValue;
+        poopMeter.AddPoop(score);
     }
 }

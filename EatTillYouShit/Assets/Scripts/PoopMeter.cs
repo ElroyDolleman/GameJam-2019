@@ -32,13 +32,13 @@ public class PoopMeter : MonoBehaviour
         pos.y -= endFillPosY;
         poopFillTransform.position = pos;
 
-        InvokeRepeating("TestPoopMeter", 1f, 1f);
+        //InvokeRepeating("TestPoopMeter", 1f, 1f);
     }
 
-    void TestPoopMeter()
-    {
-        AddPoop(Random.Range(1, 5));
-    }
+    //void TestPoopMeter()
+    //{
+    //    AddPoop(Random.Range(1, 5));
+    //}
 
     // Update is called once per frame
     void Update()
@@ -65,6 +65,7 @@ public class PoopMeter : MonoBehaviour
 
     public void AddPoop(int amountOfPoopToAdd)
     {
+        Debug.Log("Added Score" + amountOfPoopToAdd);
         updateToPoopValue += (float)amountOfPoopToAdd;
         fromPoopValue = currentPoopValue;
         easing = 0;
