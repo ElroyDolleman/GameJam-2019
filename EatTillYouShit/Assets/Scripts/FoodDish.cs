@@ -22,9 +22,14 @@ public class FoodDish : MonoBehaviour
 
     List<Food> foodList;
 
-    private void OnValidate()
+    CircleCollider2D circleCollider;
+
+    private void Awake()
     {
-        startPosY = transform.position.y;
+        circleCollider = GetComponent<CircleCollider2D>();
+
+        if (circleCollider == null)
+            Debug.LogWarning("Food dish needs a CircleCollider2D component");
     }
 
     // Start is called before the first frame update
@@ -111,7 +116,19 @@ public class FoodDish : MonoBehaviour
         Food newFood = GameObject.Instantiate(foodPrefab);
 
         newFood.transform.SetParent(transform);
-        newFood.transform.localPosition = Vector3.zero;
+
+        float offX = Mathf.Abs(newFood.circleCollider.offset.x);
+        float offY = Mathf.Abs(newFood.circleCollider.offset.y);
+        float extraOffset = Mathf.Max(offX, offY);
+        float maxRadius = circleCollider.radius - newFood.circleCollider.radius - extraOffset;
+
+        float randomRadius = Random.Range(0, maxRadius);
+        float randomAngle = Random.Range(0, Mathf.Deg2Rad * 360);
+
+        float rangeX = randomRadius * Mathf.Cos(randomAngle);
+        float rangeY = randomRadius * Mathf.Sin(randomAngle);
+
+        newFood.transform.localPosition = new Vector3(rangeX, rangeY, 0);
 
         foodList.Add(newFood);
     }
