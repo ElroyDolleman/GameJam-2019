@@ -205,6 +205,17 @@ public class FoodDish : MonoBehaviour
     //    food.transform.localPosition = new Vector3(rangeX, rangeY, 0);
     //}
 
+    public void RemoveFood(Food food)
+    {
+        if (!foodList.Contains(food))
+        {
+            Debug.LogError("Trying to remove food that is already gone");
+            return;
+        }
+
+        foodList.Remove(food);
+    }
+
     public List<Food> GetAllFood() { return foodList; }
 
     void ChangeYPos(float y)

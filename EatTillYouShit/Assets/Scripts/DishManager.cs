@@ -67,4 +67,9 @@ public class DishManager : MonoBehaviour
     {
         return servingDish.GetAllFood();
     }
+
+    public void RemoveFood(Food food)
+    {
+        servingDish.RemoveFood(food);
+    }
 }
