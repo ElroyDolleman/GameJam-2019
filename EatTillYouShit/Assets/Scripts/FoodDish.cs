@@ -205,6 +205,8 @@ public class FoodDish : MonoBehaviour
     //    food.transform.localPosition = new Vector3(rangeX, rangeY, 0);
     //}
 
+    public List<Food> GetAllFood() { return foodList; }
+
     void ChangeYPos(float y)
     {
         var pos = transform.position;

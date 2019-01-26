@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DishManager : MonoBehaviour
 {
+    public static DishManager instance;
+
     [SerializeField]
     FoodDish servingDish;
     [SerializeField]
@@ -23,6 +25,13 @@ public class DishManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.StopListening("EVERYONE_DONE", ServeNext);
+    }
+
+    private void Awake()
+    {
+        if (instance != null)
+            Debug.LogError("There should only be 1 instance of DishManager");
+        instance = this;
     }
 
     // Start is called before the first frame update
@@ -52,5 +61,10 @@ public class DishManager : MonoBehaviour
         var swap = servingDish;
         servingDish = waitingDish;
         waitingDish = swap;
+    }
+
+    public List<Food> GetCurrentFood()
+    {
+        return servingDish.GetAllFood();
     }
 }
