@@ -71,15 +71,15 @@ public class ScoreManager : MonoBehaviour
                 {
                     StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
                 }
-                if (!p2Received)
+                else if (!p2Received)
                 {
                     StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
                 }
-                if (!p3Received)
+                else if (!p3Received)
                 {
                     StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
                 }
-                if (!p4Received)
+                else if (!p4Received)
                 {
                     StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
                 }
