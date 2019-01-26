@@ -22,14 +22,11 @@ public class FoodDish : MonoBehaviour
 
     List<Food> foodList;
 
-    CircleCollider2D circleCollider;
+    BoxCollider2D boxCollider;
 
     private void Awake()
     {
-        circleCollider = GetComponent<CircleCollider2D>();
-
-        if (circleCollider == null)
-            Debug.LogWarning("Food dish needs a CircleCollider2D component");
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Start is called before the first frame update
@@ -154,7 +151,7 @@ public class FoodDish : MonoBehaviour
             }
             else if (safe++ > 1000)
             {
-                Debug.LogWarning("Failed to place food at a correct place");
+                Debug.Log("Failed to place food at a correct place");
                 break;
             }
         }
@@ -164,19 +161,37 @@ public class FoodDish : MonoBehaviour
 
     void PlaceFoodRandomly(Food food)
     {
-        float offX = Mathf.Abs(food.circleCollider.offset.x);
-        float offY = Mathf.Abs(food.circleCollider.offset.y);
-        float extraOffset = Mathf.Max(offX, offY);
-        float maxRadius = circleCollider.radius - food.circleCollider.radius - extraOffset;
+        float left = boxCollider.offset.x - boxCollider.size.x / 2;
+        float right = boxCollider.offset.x + boxCollider.size.x / 2;
+        float bottom = boxCollider.offset.y - boxCollider.size.y / 2;
+        float top = boxCollider.offset.y + boxCollider.size.y / 2;
 
-        float randomRadius = Random.Range(0, maxRadius);
-        float randomAngle = Random.Range(0, Mathf.Deg2Rad * 360);
+        float minX = left + food.circleCollider.radius;
+        float maxX = right - food.circleCollider.radius;
+        float minY = bottom + food.circleCollider.radius;
+        float maxY = top - food.circleCollider.radius;
 
-        float rangeX = randomRadius * Mathf.Cos(randomAngle);
-        float rangeY = randomRadius * Mathf.Sin(randomAngle);
+        float randX = Random.Range(minX, maxX);
+        float randY = Random.Range(minY, maxY);
 
-        food.transform.localPosition = new Vector3(rangeX, rangeY, 0);
+        food.transform.localPosition = new Vector3(randX, randY, 0);
     }
+
+    //void PlaceFoodRandomly(Food food)
+    //{
+    //    float offX = Mathf.Abs(food.circleCollider.offset.x);
+    //    float offY = Mathf.Abs(food.circleCollider.offset.y);
+    //    float extraOffset = Mathf.Max(offX, offY);
+    //    float maxRadius = circleCollider.radius - food.circleCollider.radius - extraOffset;
+
+    //    float randomRadius = Random.Range(0, maxRadius);
+    //    float randomAngle = Random.Range(0, Mathf.Deg2Rad * 360);
+
+    //    float rangeX = randomRadius * Mathf.Cos(randomAngle);
+    //    float rangeY = randomRadius * Mathf.Sin(randomAngle);
+
+    //    food.transform.localPosition = new Vector3(rangeX, rangeY, 0);
+    //}
 
     void ChangeYPos(float y)
     {
