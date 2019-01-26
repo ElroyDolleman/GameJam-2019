@@ -93,7 +93,7 @@ public class HandController : MonoBehaviour
         if (GetAxisOnce(playerAction))
         {
             Food target = foodInteractObject.GetTarget();
-            if (target != null && !target.isTaken)
+            if (target != null && !target.isTaken && target.GetComponent<Renderer>().isVisible)
             {
                 TakeFood(target);
                 //target.isTaken = true;
@@ -133,6 +133,16 @@ public class HandController : MonoBehaviour
             yield return null;
         }
         yield return null;
+    }
+
+    public IEnumerator Automatic(Food target)
+    {
+        while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementDelta * Time.deltaTime);
+            yield return null;
+        }
+        TakeFood(target);
     }
 
     public void ResetHand()
