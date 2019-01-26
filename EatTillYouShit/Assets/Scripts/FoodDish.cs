@@ -107,6 +107,8 @@ public class FoodDish : MonoBehaviour
 
     void RandomizeFood()
     {
+        FoodManager.instance.ChooseNextRandomMenu();
+
         for (int i = 0; i < PoopMeter.poopMeters.Count; i++)
         {
             if (PoopMeter.poopMeters[i].isFull)
@@ -140,7 +142,7 @@ public class FoodDish : MonoBehaviour
     void SpawnRandomFood()
     {
         int index = 0;
-        Food foodPrefab = FoodManager.instance.GetRandomFood(MenuTypes.starters, ref index);
+        Food foodPrefab = FoodManager.instance.GetRandomFood(ref index);
 
         // Brute force a food type that hasn't spawned yet
         if (FoodManager.instance.shouldBruteForce && foodIndices.Contains(index))

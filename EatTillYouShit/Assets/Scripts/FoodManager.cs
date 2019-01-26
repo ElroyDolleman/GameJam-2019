@@ -2,64 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MenuTypes
-{
-    drinks,
-    starters,
-    main,
-    desert
-}
-
 public class FoodManager : MonoBehaviour
 {
     [SerializeField]
-    List<Food> drinks;
+    List<Food> foodList;
     [SerializeField]
-    List<Food> starters;
-    [SerializeField]
-    List<Food> mains;
-    [SerializeField]
-    List<Food> deserts;
+    List<Food> drinkList;
+
+    List<Food> nextList;
 
     public static FoodManager instance;
 
-    public bool shouldBruteForce { get { return starters.Count >= 4; } }
+    public bool shouldBruteForce { get { return drinkList.Count >= 4; } }
 
     // Start is called before the first frame update
     void Awake()
     {
         if (instance != null) Debug.LogError("There should only be one instance of FoodManager");
         instance = this;
+
+        nextList = foodList;
     }
 
-    public Food GetRandomFood(MenuTypes menuType, ref int index)
+    public Food GetRandomFood(ref int index)
     {
-        var list = GetFoodList(menuType);
-
-        index = Random.Range(0, list.Count);
-
-        return list[index];
+        index = Random.Range(0, nextList.Count);
+        return nextList[index];
     }
 
-    public List<Food> GetFoodList(MenuTypes menuType)
+    public void ChooseNextRandomMenu()
     {
-        switch (menuType)
-        {
-            default:
-            case MenuTypes.main:
-                return mains;
-            case MenuTypes.drinks:
-                return drinks;
-            case MenuTypes.starters:
-                return starters;
-            case MenuTypes.desert:
-                return deserts;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        nextList = Random.Range(0f, 1f) > 0.5f ? foodList : drinkList;
     }
 }
