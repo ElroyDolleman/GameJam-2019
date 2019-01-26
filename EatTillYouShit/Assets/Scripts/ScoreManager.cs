@@ -53,7 +53,7 @@ public class ScoreManager : MonoBehaviour
     {
         //if (Time.frameCount % interval == 0)
         //{
-        if (eventsReceived >= DishManager.instance.GetCurrentFood().Count)
+        if (eventsReceived >= PoopMeter.nonPoopers)
         {
             EveryoneDone();
         }
