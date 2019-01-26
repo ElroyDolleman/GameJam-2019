@@ -112,6 +112,8 @@ public class FoodDish : MonoBehaviour
         {
             SpawnRandomFood();
         }
+
+        foodIndices.Clear();
     }
 
     bool CheckFoodOverlap(Food food)
@@ -132,9 +134,19 @@ public class FoodDish : MonoBehaviour
         return false;
     }
 
+    List<int> foodIndices = new List<int>();
     void SpawnRandomFood()
     {
-        Food foodPrefab = FoodManager.instance.GetRandomFood(MenuTypes.starters);
+        int index = 0;
+        Food foodPrefab = FoodManager.instance.GetRandomFood(MenuTypes.starters, ref index);
+
+        // Brute force a food type that hasn't spawned yet
+        if (FoodManager.instance.shouldBruteForce && foodIndices.Contains(index))
+        {
+            SpawnRandomFood();
+            return;
+        }
+        foodIndices.Add(index);
 
         Food newFood = GameObject.Instantiate(foodPrefab);
         newFood.transform.SetParent(transform);
