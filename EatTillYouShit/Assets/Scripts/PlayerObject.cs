@@ -20,6 +20,7 @@ public class PlayerObject : MonoBehaviour
     public void AddFood(Food data)
     {
         Debug.Log("Player" + playerID + " scored some points");
+        EventManager.TriggerEvent("SCORED_PLAYER" + playerID);
         score = data.poopValue;
     }
 }

@@ -20,6 +20,7 @@ public class HandController : MonoBehaviour
     private FoodInteract foodInteractObject;
 
     private int lastFrame = 0;
+    private bool scored = false;
 
     private void Start()
     {
@@ -61,40 +62,24 @@ public class HandController : MonoBehaviour
         targetPosition = cam.ViewportToWorldPoint(viewPosition);
         transform.position = targetPosition;
 
+        if (!scored)
+        {
+            CheckInput();
+        }
 
-        //if ((lastFrame + 1000 <= Time.frameCount)  && (Input.GetButtonDown(playerAction) || GetAxisOnce(playerAction)))
-        //{
-        //    Debug.Log(lastFrame + " frames " + Time.frameCount);
-        //    lastFrame = Time.frameCount;
-        //    Debug.Log(playerAction + "triggered");
-        //    ////check if food is inside collider
-        //    //BoxCollider2D thisCollider =GetComponent<BoxCollider2D>();
-        //    //Collider2D[] colls = Physics2D.OverlapBoxAll(transform.position, new Vector2(thisCollider.size.x * transform.localScale.x, thisCollider.size.y * transform.localScale.y), 0);
-
-        //    //foreach (Collider2D coll in colls)
-        //    //{
-        //    //    Debug.Log(coll.gameObject.name);
-        //    //    if (coll.GetComponent<FoodMiniTestje>()) //if (coll.GetComponent<Food>())
-        //    //    {
-        //    if (foodInteractObject.GetTarget())
-        //        player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
-        //            //break;
-        //    //    }
-        //    //}
         //}
-
-        //} 
-
-        CheckInput();
     }
 
     void CheckInput()
     {
         if (GetAxisOnce(playerAction))
         {
-            if (foodInteractObject.GetTarget())
+            Food target = foodInteractObject.GetTarget();
+            if (target != null && !target.isTaken)
             {
-                player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
+                //player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
+                player.AddFood(target);
+                scored = true;
             }
         }
     }

@@ -8,7 +8,7 @@ public class Event : UnityEvent { }
 
 public class EventManager : MonoBehaviour {
 
-    private Dictionary<string, Event> eventDictionary;
+    private Dictionary<string, Event> eventDictionary = new Dictionary<string, Event>();
     private static EventManager eventManager;
 
     public static EventManager instance
