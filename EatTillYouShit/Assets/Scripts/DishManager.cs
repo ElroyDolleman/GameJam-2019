@@ -15,11 +15,22 @@ public class DishManager : MonoBehaviour
     [SerializeField, Range(0, 10)]
     float maxAnticipationTime = 4f;
 
+    private void OnEnable()
+    {
+        EventManager.StartListening("EVERYONE_DONE", ServeNext);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("EVERYONE_DONE", ServeNext);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         // For testing, just for now, not for later
-        InvokeRepeating("ServeNext", 1, 3);
+        //InvokeRepeating("ServeNext", 1, 3);
+        ServeNext();
     }
 
     void ServeNext()

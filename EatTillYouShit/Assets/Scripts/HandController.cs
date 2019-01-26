@@ -26,6 +26,16 @@ public class HandController : MonoBehaviour
 
     private Vector3 originalPos;
 
+    private void OnEnable()
+    {
+        EventManager.StartListening("EVERYONE_DONE", ResetHand);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("EVERYONE_DONE", ResetHand);
+    }
+
     private void Start()
     {
         cam = Camera.main;
@@ -85,13 +95,21 @@ public class HandController : MonoBehaviour
             Food target = foodInteractObject.GetTarget();
             if (target != null && !target.isTaken)
             {
-                //player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
-                player.AddFood(target);
-                scored = true;
-                target.transform.SetParent(transform);
-                //StartCoroutine(MoveArmBack());
+                TakeFood(target);
+                //target.isTaken = true;
+                //player.AddFood(target);
+                //scored = true;
+                //target.transform.SetParent(transform);
             }
         }
+    }
+
+    public void TakeFood(Food target)
+    {
+        target.isTaken = true;
+        player.AddFood(target);
+        scored = true;
+        target.transform.SetParent(transform);
     }
 
     bool GetAxisOnce(string axisName)
@@ -115,5 +133,10 @@ public class HandController : MonoBehaviour
             yield return null;
         }
         yield return null;
+    }
+
+    public void ResetHand()
+    {
+        scored = false;
     }
 }
