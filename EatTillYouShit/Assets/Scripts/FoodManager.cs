@@ -23,6 +23,8 @@ public class FoodManager : MonoBehaviour
 
     public static FoodManager instance;
 
+    public bool shouldBruteForce { get { return starters.Count >= 4; } }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,13 +32,13 @@ public class FoodManager : MonoBehaviour
         instance = this;
     }
 
-    public Food GetRandomFood(MenuTypes menuType)
+    public Food GetRandomFood(MenuTypes menuType, ref int index)
     {
         var list = GetFoodList(menuType);
 
-        int r = Random.Range(0, list.Count - 1);
+        index = Random.Range(0, list.Count);
 
-        return list[r];
+        return list[index];
     }
 
     public List<Food> GetFoodList(MenuTypes menuType)
