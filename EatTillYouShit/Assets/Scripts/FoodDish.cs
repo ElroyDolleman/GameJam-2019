@@ -93,7 +93,6 @@ public class FoodDish : MonoBehaviour
         ChangeYPos(startPosY);
 
         DestroyOldFood();
-        RandomizeFood();
     }
 
     public void DestroyOldFood()
@@ -234,5 +233,8 @@ public class FoodDish : MonoBehaviour
 
         easeStep = 0;
         yPosStateChange = transform.position.y;
+
+        if (newState == DishStates.serve)
+            RandomizeFood();
     }
 }

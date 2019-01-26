@@ -254,7 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poopFillTransform: {fileID: 5515860640411518380}
   fillRenderer: {fileID: 5515860640411518381}
-  endFillPosY: 0.1
+  endFillPosY: 0.084
   stayVisible: 0
 --- !u!1 &6286508249444361622
 GameObject:
