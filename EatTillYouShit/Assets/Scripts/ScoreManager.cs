@@ -61,7 +61,7 @@ public class ScoreManager : MonoBehaviour
                 Food target = null;
                 foreach (Food f in DishManager.instance.GetCurrentFood())
                 {
-                    if (!f.isTaken && target != null)
+                    if (!f.isTaken)
                     {
                         target = f;
                     }
