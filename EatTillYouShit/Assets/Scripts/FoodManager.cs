@@ -24,7 +24,7 @@ public class FoodManager : MonoBehaviour
     public static FoodManager instance;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (instance != null) Debug.LogError("There should only be one instance of FoodManager");
         instance = this;
