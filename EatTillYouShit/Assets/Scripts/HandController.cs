@@ -143,7 +143,6 @@ public class HandController : MonoBehaviour
     public IEnumerator Automatic(Food target)
     {
         bool succes = false;
-        Debug.Log(target + "--- targett");
         do
         {
             if (target == null)

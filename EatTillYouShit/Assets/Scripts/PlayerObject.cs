@@ -20,7 +20,7 @@ public class PlayerObject : MonoBehaviour
 
     public void AddFood(Food data)
     {
-        Debug.Log("Player --" + data.name);
+        Debug.Log("Player --" + data.name + "scorevalue " + data.poopValue);
         EventManager.TriggerEvent("SCORED_PLAYER" + playerID);
         score = data.poopValue;
         poopMeter.AddPoop(score);
