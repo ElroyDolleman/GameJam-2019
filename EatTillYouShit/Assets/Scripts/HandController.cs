@@ -82,7 +82,7 @@ public class HandController : MonoBehaviour
         targetPosition = cam.ViewportToWorldPoint(viewPosition);
         transform.position = targetPosition;
 
-        if (!scored)
+        if (!scored && !player.poopMeter.isFull)
         {
             CheckInput();
         } else
@@ -151,20 +151,26 @@ public class HandController : MonoBehaviour
     public IEnumerator Automatic(Food target)
     {
         bool succes = false;
-        do
+        if (!player.poopMeter.isFull)
         {
-            if (target == null)
-                yield break;
-
-            while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)
+            do
             {
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementDelta * Time.deltaTime);
-                yield return null;
-            }
+                if (target == null)
+                    yield break;
 
-            succes = TakeFood(target);
-            yield return null;
-        } while (!succes);
+                while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementDelta * Time.deltaTime);
+                    yield return null;
+                }
+
+                succes = TakeFood(target);
+                yield return null;
+            } while (!succes);
+        } else
+        {
+            EventManager.TriggerEvent("SCORED_PLAYER" + playerID);
+        }
     }
 
     public void ResetHand()

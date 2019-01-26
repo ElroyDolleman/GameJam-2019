@@ -78,19 +78,19 @@ public class ScoreManager : MonoBehaviour
                     }
                 }
 
-                if (!p1Received)
+                if (!p1Received && !player1.GetComponent<PlayerObject>().poopMeter.isFull)
                 {
                     StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
                 }
-                else if (!p2Received)
+                else if (!p2Received && !player2.GetComponent<PlayerObject>().poopMeter.isFull)
                 {
                     StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
                 }
-                else if (!p3Received)
+                else if (!p3Received && !player3.GetComponent<PlayerObject>().poopMeter.isFull)
                 {
                     StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
                 }
-                else if (!p4Received)
+                else if (!p4Received && !player4.GetComponent<PlayerObject>().poopMeter.isFull)
                 {
                     StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
                 }
@@ -149,8 +149,6 @@ public class ScoreManager : MonoBehaviour
         }
 
         StartCoroutine(WaitForNextDish());
-        //Debug.Log("ScoreManager: event fired \"EVERYONE_DONE\"");
-        //EventManager.TriggerEvent("EVERYONE_DONE");
     }
 
     IEnumerator WaitForNextDish()
