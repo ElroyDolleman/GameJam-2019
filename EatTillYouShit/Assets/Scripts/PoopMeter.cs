@@ -26,19 +26,12 @@ public class PoopMeter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        poopFillStartPosY = poopFillTransform.position.y;
+        poopFillStartPosY = poopFillTransform.localPosition.y;
 
-        var pos = poopFillTransform.position;
+        var pos = poopFillTransform.localPosition;
         pos.y -= endFillPosY;
-        poopFillTransform.position = pos;
-
-        //InvokeRepeating("TestPoopMeter", 1f, 1f);
+        poopFillTransform.localPosition = pos;
     }
-
-    //void TestPoopMeter()
-    //{
-    //    AddPoop(Random.Range(1, 5));
-    //}
 
     // Update is called once per frame
     void Update()
@@ -53,9 +46,9 @@ public class PoopMeter : MonoBehaviour
 
         float progress = 1 - currentPoopValue / maxPoopValue;
 
-        var pos = poopFillTransform.position;
+        var pos = poopFillTransform.localPosition;
         pos.y = poopFillStartPosY * progress - endFillPosY;
-        poopFillTransform.position = pos;
+        poopFillTransform.localPosition = pos;
 
         if (isFull)
         {
@@ -65,8 +58,12 @@ public class PoopMeter : MonoBehaviour
 
     public void AddPoop(int amountOfPoopToAdd)
     {
-        Debug.Log("Added Score" + amountOfPoopToAdd); //
+        Debug.Log("Added Score" + amountOfPoopToAdd);
         updateToPoopValue += (float)amountOfPoopToAdd;
+
+        if (updateToPoopValue > maxPoopValue)
+            updateToPoopValue = maxPoopValue;
+
         fromPoopValue = currentPoopValue;
         easing = 0;
     }

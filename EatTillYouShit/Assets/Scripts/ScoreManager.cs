@@ -55,7 +55,7 @@ public class ScoreManager : MonoBehaviour
                 startTime = Time.time;
             }
             //when timer = 0
-            Debug.Log("ScoreManager: is time passed? " + ((startTime + decisionTime) == Time.time));
+            //Debug.Log("ScoreManager: is time passed? " + ((startTime + decisionTime) == Time.time));
             if (Time.time >= (startTime + decisionTime)) {
             //if (startTime > 5f) { 
                 Food target = null;
