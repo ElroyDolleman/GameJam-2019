@@ -30,6 +30,11 @@ public class FoodManager : MonoBehaviour
         return nextList[index];
     }
 
+    public Food GetFood(int index)
+    {
+        return nextList[index];
+    }
+
     public void ChooseNextRandomMenu()
     {
         nextList = Random.Range(0f, 1f) > 0.5f ? foodList : drinkList;

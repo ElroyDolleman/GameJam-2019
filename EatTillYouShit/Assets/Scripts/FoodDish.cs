@@ -117,6 +117,7 @@ public class FoodDish : MonoBehaviour
             SpawnRandomFood();
         }
 
+        nextIndex = 0;
         foodIndices.Clear();
     }
 
@@ -139,18 +140,32 @@ public class FoodDish : MonoBehaviour
     }
 
     List<int> foodIndices = new List<int>();
+    int nextIndex = 0;
     void SpawnRandomFood()
     {
-        int index = 0;
-        Food foodPrefab = FoodManager.instance.GetRandomFood(ref index);
+        Food foodPrefab;
 
-        // Brute force a food type that hasn't spawned yet
-        if (FoodManager.instance.shouldBruteForce && foodIndices.Contains(index))
+        // Randomize the food shown when there is at least one player pooping
+        if (PoopMeter.nonPoopers < 4)
         {
-            SpawnRandomFood();
-            return;
+            int index = 0;
+            foodPrefab = FoodManager.instance.GetRandomFood(ref index);
+
+            // Brute force a food type that hasn't spawned yet
+            if (FoodManager.instance.shouldBruteForce && foodIndices.Contains(index))
+            {
+                SpawnRandomFood();
+                return;
+            }
+            foodIndices.Add(index);
         }
-        foodIndices.Add(index);
+
+        // No need to randomize when all foods need to show
+        else
+        {
+            foodPrefab = FoodManager.instance.GetFood(nextIndex);
+            nextIndex++;
+        }
 
         Food newFood = GameObject.Instantiate(foodPrefab);
         newFood.transform.SetParent(transform);
