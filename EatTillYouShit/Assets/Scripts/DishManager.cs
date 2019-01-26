@@ -18,6 +18,7 @@ public class DishManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // For testing, just for now, not for later
         InvokeRepeating("ServeNext", 1, 3);
     }
 
@@ -27,8 +28,6 @@ public class DishManager : MonoBehaviour
 
         servingDish.ChangeState(FoodDish.DishStates.serve);
         waitingDish.ChangeState(FoodDish.DishStates.remove);
-
-        Debug.Log("Serve next dish");
     }
 
     // Update is called once per frame

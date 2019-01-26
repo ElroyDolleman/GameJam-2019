@@ -215,8 +215,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1074456251}
   - component: {fileID: 1074456252}
+  - component: {fileID: 1074456253}
   m_Layer: 0
-  m_Name: FoodManager
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -252,6 +253,23 @@ MonoBehaviour:
   waitingDish: {fileID: 577643206}
   minAnticipationTime: 0.5
   maxAnticipationTime: 4
+--- !u!114 &1074456253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074456250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eba6f57b363fa7944b4e7da9339a7d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drinks: []
+  starters:
+  - {fileID: 354432962305933562, guid: c334ee76c3b6d8a429f19de17aad09a5, type: 3}
+  mains: []
+  deserts: []
 --- !u!1 &1759189459
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,4 +444,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105a3188160dba94d8da63e8cd388f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosY: 8.3
+  startPosY: 0
