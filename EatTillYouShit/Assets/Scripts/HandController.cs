@@ -145,7 +145,10 @@ public class HandController : MonoBehaviour
         bool succes = false;
         Debug.Log(target + "--- targett");
         do
-        { 
+        {
+            if (target == null)
+                yield break;
+
             while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementDelta * Time.deltaTime);

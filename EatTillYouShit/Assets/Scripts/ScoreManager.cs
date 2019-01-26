@@ -63,28 +63,25 @@ public class ScoreManager : MonoBehaviour
                 {
                     if (!f.isTaken)
                     {
-                        //f.isTaken = true;
                         target = f;
-                        //target.isTaken = true;
                     }
                 }
-                if (target != null) {
-                    if (!p1Received)
-                    {
-                        StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
-                    }
-                    if (!p2Received)
-                    {
-                        StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
-                    }
-                    if (!p3Received)
-                    {
-                        StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
-                    }
-                    if (!p4Received)
-                    {
-                        StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
-                    }
+
+                if (!p1Received)
+                {
+                    StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
+                }
+                else if (!p2Received)
+                {
+                    StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
+                }
+                else if (!p3Received)
+                {
+                    StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
+                }
+                else if (!p4Received)
+                {
+                    StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
                 }
                 //}
             }
