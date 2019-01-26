@@ -93,7 +93,6 @@ public class FoodDish : MonoBehaviour
         ChangeYPos(startPosY);
 
         DestroyOldFood();
-        RandomizeFood();
     }
 
     public void DestroyOldFood()
@@ -108,6 +107,8 @@ public class FoodDish : MonoBehaviour
 
     void RandomizeFood()
     {
+        FoodManager.instance.ChooseNextRandomMenu();
+
         for (int i = 0; i < PoopMeter.poopMeters.Count; i++)
         {
             if (PoopMeter.poopMeters[i].isFull)
@@ -116,6 +117,7 @@ public class FoodDish : MonoBehaviour
             SpawnRandomFood();
         }
 
+        nextIndex = 0;
         foodIndices.Clear();
     }
 
@@ -138,18 +140,32 @@ public class FoodDish : MonoBehaviour
     }
 
     List<int> foodIndices = new List<int>();
+    int nextIndex = 0;
     void SpawnRandomFood()
     {
-        int index = 0;
-        Food foodPrefab = FoodManager.instance.GetRandomFood(MenuTypes.starters, ref index);
+        Food foodPrefab;
 
-        // Brute force a food type that hasn't spawned yet
-        if (FoodManager.instance.shouldBruteForce && foodIndices.Contains(index))
+        // Randomize the food shown when there is at least one player pooping
+        if (PoopMeter.nonPoopers < 4)
         {
-            SpawnRandomFood();
-            return;
+            int index = 0;
+            foodPrefab = FoodManager.instance.GetRandomFood(ref index);
+
+            // Brute force a food type that hasn't spawned yet
+            if (FoodManager.instance.shouldBruteForce && foodIndices.Contains(index))
+            {
+                SpawnRandomFood();
+                return;
+            }
+            foodIndices.Add(index);
         }
-        foodIndices.Add(index);
+
+        // No need to randomize when all foods need to show
+        else
+        {
+            foodPrefab = FoodManager.instance.GetFood(nextIndex);
+            nextIndex++;
+        }
 
         Food newFood = GameObject.Instantiate(foodPrefab);
         newFood.transform.SetParent(transform);
@@ -234,5 +250,8 @@ public class FoodDish : MonoBehaviour
 
         easeStep = 0;
         yPosStateChange = transform.position.y;
+
+        if (newState == DishStates.serve)
+            RandomizeFood();
     }
 }

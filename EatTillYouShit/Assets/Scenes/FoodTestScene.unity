@@ -455,14 +455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba6f57b363fa7944b4e7da9339a7d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drinks: []
-  starters:
+  foodList:
+  - {fileID: 2160250201404738282, guid: ade8668e58427ce409c52738af0f3357, type: 3}
+  - {fileID: 6153101410389580503, guid: b4a4e22b4c0f45e409d30a2251d1276c, type: 3}
   - {fileID: 4961019253679804669, guid: a4dd5cf42bb4ef747935647e61e60dd5, type: 3}
   - {fileID: 9085077345421256135, guid: c859f149595b6894eab248ed095c2c45, type: 3}
-  - {fileID: 6153101410389580503, guid: b4a4e22b4c0f45e409d30a2251d1276c, type: 3}
-  - {fileID: 2160250201404738282, guid: ade8668e58427ce409c52738af0f3357, type: 3}
-  mains: []
-  deserts: []
+  drinkList:
+  - {fileID: 1156290454726963103, guid: 9cff265c85bb2904ca1a9c8e3f145d9f, type: 3}
+  - {fileID: 4574155360929962448, guid: 293616fdf7c0f844f8f508e8d96f7fc2, type: 3}
+  - {fileID: 2945999840517037647, guid: 971cb5c0a9a15314599de664724c77e3, type: 3}
+  - {fileID: 354432962305933562, guid: c334ee76c3b6d8a429f19de17aad09a5, type: 3}
 --- !u!1 &1759189459
 GameObject:
   m_ObjectHideFlags: 0
