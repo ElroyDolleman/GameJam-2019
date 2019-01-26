@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     public GameObject player2;
     public GameObject player3;
     public GameObject player4;
+    List<PlayerObject> playerObjectList;
 
     private void OnEnable()
     {
@@ -36,6 +37,15 @@ public class ScoreManager : MonoBehaviour
         EventManager.StopListening("SCORED_PLAYER2", AddReceivePlayer2);
         EventManager.StopListening("SCORED_PLAYER3", AddReceivePlayer3);
         EventManager.StopListening("SCORED_PLAYER4", AddReceivePlayer4);
+    }
+
+    private void Start()
+    {
+        playerObjectList = new List<PlayerObject>();
+        playerObjectList.Add(player1.GetComponent<PlayerObject>());
+        playerObjectList.Add(player2.GetComponent<PlayerObject>());
+        playerObjectList.Add(player3.GetComponent<PlayerObject>());
+        playerObjectList.Add(player4.GetComponent<PlayerObject>());
     }
 
     private void Update()
@@ -133,5 +143,10 @@ public class ScoreManager : MonoBehaviour
         p4Received = false;
         Debug.Log("ScoreManager: event fired \"EVERYONE_DONE\"");
         EventManager.TriggerEvent("EVERYONE_DONE");
+
+        for (int i = 0; i < playerObjectList.Count; i++)
+        {
+            playerObjectList[i].FillPoopMeter();
+        }
     }
 }

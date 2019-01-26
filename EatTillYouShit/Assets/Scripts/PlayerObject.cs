@@ -23,6 +23,10 @@ public class PlayerObject : MonoBehaviour
         Debug.Log("Player --" + data.name + "scorevalue " + data.poopValue);
         EventManager.TriggerEvent("SCORED_PLAYER" + playerID);
         score = data.poopValue;
+    }
+
+    public void FillPoopMeter()
+    {
         poopMeter.AddPoop(score);
     }
 }
