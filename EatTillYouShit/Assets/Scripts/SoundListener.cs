@@ -18,7 +18,7 @@ public class SoundListener : MonoBehaviour
         EventManager.StopListening("SCORED_PLAYER" + playerID, PlaySound);
     }
 
-    private void Start()
+    private void Awake()
     {
         playerID = GetComponent<PlayerObject>().GetPlayerID();
         audioS = GetComponent<AudioSource>();
@@ -26,6 +26,7 @@ public class SoundListener : MonoBehaviour
 
     public void PlaySound()
     {
+        Debug.Log("Playing sound or something");
         audioS.Play();
     }
 }

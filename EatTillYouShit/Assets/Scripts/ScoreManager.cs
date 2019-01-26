@@ -53,7 +53,12 @@ public class ScoreManager : MonoBehaviour
     {
         //if (Time.frameCount % interval == 0)
         //{
-        if (eventsReceived >= PoopMeter.nonPoopers)
+        if (PoopMeter.nonPoopers <= 1)
+        {
+            //spawn stuff with an event
+            EventManager.TriggerEvent("GAME_OVER");
+        }
+        else if (eventsReceived >= PoopMeter.nonPoopers)
         {
             EveryoneDone();
         }

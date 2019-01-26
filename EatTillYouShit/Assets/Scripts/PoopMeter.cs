@@ -180,4 +180,9 @@ public class PoopMeter : MonoBehaviour
         fromPoopValue = currentPoopValue;
         easing = 0;
     }
+
+    public float GetCurrentPoopValue()
+    {
+        return currentPoopValue;
+    }
 }
