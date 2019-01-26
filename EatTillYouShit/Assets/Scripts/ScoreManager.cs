@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour
 {
     public int interval = 6;
     public float decisionTime = 5;
+    public float waitBetweenDishesTime = 3;
 
     private int eventsReceived = 0;
 
@@ -141,7 +142,15 @@ public class ScoreManager : MonoBehaviour
         p2Received = false;
         p3Received = false;
         p4Received = false;
-        Debug.Log("ScoreManager: event fired \"EVERYONE_DONE\"");
+
+        StartCoroutine(WaitForNextDish());
+        //Debug.Log("ScoreManager: event fired \"EVERYONE_DONE\"");
+        //EventManager.TriggerEvent("EVERYONE_DONE");
+    }
+
+    IEnumerator WaitForNextDish()
+    {
+        yield return new WaitForSeconds(waitBetweenDishesTime);
         EventManager.TriggerEvent("EVERYONE_DONE");
 
         for (int i = 0; i < playerObjectList.Count; i++)

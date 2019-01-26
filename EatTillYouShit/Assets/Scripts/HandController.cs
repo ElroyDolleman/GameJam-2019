@@ -8,6 +8,10 @@ public class HandController : MonoBehaviour
     public float actionSensitivity = 0.8f;
     public float movementDelta = 1;
 
+    public Sprite openSprite;
+    public Sprite closedSprite;
+    private SpriteRenderer currentSprite;
+
     private PlayerObject player;
     private int playerID;
 
@@ -46,6 +50,7 @@ public class HandController : MonoBehaviour
         player = GetComponent<PlayerObject>();
         foodInteractObject = GetComponent<FoodInteract>();
         originalPos = transform.position;
+        currentSprite = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -112,6 +117,9 @@ public class HandController : MonoBehaviour
             player.AddFood(target);
             scored = true;
             target.transform.SetParent(transform);
+            target.transform.position = transform.position;
+            //change sprites
+            currentSprite.sprite = closedSprite;
             return true;
         }
         return false;
@@ -162,5 +170,7 @@ public class HandController : MonoBehaviour
     public void ResetHand()
     {
         scored = false;
+        //change sprites
+        currentSprite.sprite = openSprite;
     }
 }
