@@ -72,4 +72,9 @@ public class DishManager : MonoBehaviour
     {
         servingDish.RemoveFood(food);
     }
+
+    public void ResetDish()
+    {
+        servingDish.DestroyOldFood();
+    }
 }

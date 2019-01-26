@@ -96,7 +96,7 @@ public class FoodDish : MonoBehaviour
         RandomizeFood();
     }
 
-    void DestroyOldFood()
+    public void DestroyOldFood()
     {
         for (int i = 0; i < foodList.Count; i++)
         {

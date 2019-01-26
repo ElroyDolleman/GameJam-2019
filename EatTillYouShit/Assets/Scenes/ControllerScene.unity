@@ -710,7 +710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interval: 6
   decisionTime: 2
-  waitBetweenDishesTime: 1.5
+  waitBetweenDishesTime: 2.2
   player1: {fileID: 1137051865}
   player2: {fileID: 1975458108}
   player3: {fileID: 1156931269}
@@ -825,19 +825,19 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 092061f61725ce644ac7fb2225d0594b,
+      objectReference: {fileID: 21300000, guid: 0e440d10a8368f24eb8fc9ad22e20826,
         type: 3}
     - target: {fileID: 6197091289990516316, guid: a6b4225f72652ba4e92edecc522472d3,
         type: 3}
       propertyPath: openSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 092061f61725ce644ac7fb2225d0594b,
+      objectReference: {fileID: 21300000, guid: 0e440d10a8368f24eb8fc9ad22e20826,
         type: 3}
     - target: {fileID: 6197091289990516316, guid: a6b4225f72652ba4e92edecc522472d3,
         type: 3}
       propertyPath: closedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: e6b77df7aab74f14f8175ccc5a036af1,
+      objectReference: {fileID: 21300000, guid: d4ecfbff0567ab6479bb9ddc1dba52f0,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6b4225f72652ba4e92edecc522472d3, type: 3}

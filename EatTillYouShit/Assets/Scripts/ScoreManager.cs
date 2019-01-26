@@ -143,6 +143,11 @@ public class ScoreManager : MonoBehaviour
         p3Received = false;
         p4Received = false;
 
+        for (int i = 0; i < playerObjectList.Count; i++)
+        {
+            playerObjectList[i].FillPoopMeter();
+        }
+
         StartCoroutine(WaitForNextDish());
         //Debug.Log("ScoreManager: event fired \"EVERYONE_DONE\"");
         //EventManager.TriggerEvent("EVERYONE_DONE");
@@ -151,11 +156,7 @@ public class ScoreManager : MonoBehaviour
     IEnumerator WaitForNextDish()
     {
         yield return new WaitForSeconds(waitBetweenDishesTime);
+        DishManager.instance.ResetDish();
         EventManager.TriggerEvent("EVERYONE_DONE");
-
-        for (int i = 0; i < playerObjectList.Count; i++)
-        {
-            playerObjectList[i].FillPoopMeter();
-        }
     }
 }
