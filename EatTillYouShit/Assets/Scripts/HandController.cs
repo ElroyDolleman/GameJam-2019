@@ -104,12 +104,17 @@ public class HandController : MonoBehaviour
         }
     }
 
-    public void TakeFood(Food target)
+    public bool TakeFood(Food target)
     {
-        target.isTaken = true;
-        player.AddFood(target);
-        scored = true;
-        target.transform.SetParent(transform);
+        if (target != null && !target.isTaken && target.GetComponent<Renderer>().isVisible)
+        {
+            target.isTaken = true;
+            player.AddFood(target);
+            scored = true;
+            target.transform.SetParent(transform);
+            return true;
+        }
+        return false;
     }
 
     bool GetAxisOnce(string axisName)
@@ -137,12 +142,18 @@ public class HandController : MonoBehaviour
 
     public IEnumerator Automatic(Food target)
     {
-        while (Vector3.Distance(transform.position, target.transform.position) > 0.001f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementDelta * Time.deltaTime);
+        bool succes = false;
+        do
+        { 
+            while (Vector3.Distance(transform.position, target.transform.position) > 0.001f && !target.isTaken)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, movementDelta * Time.deltaTime);
+                yield return null;
+            }
+
+            succes = TakeFood(target);
             yield return null;
-        }
-        TakeFood(target);
+        } while (!succes);
     }
 
     public void ResetHand()

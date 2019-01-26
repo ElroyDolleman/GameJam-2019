@@ -42,55 +42,50 @@ public class ScoreManager : MonoBehaviour
     {
         //if (Time.frameCount % interval == 0)
         //{
-            if (eventsReceived >= 4)
+        if (eventsReceived >= 4)
+        {
+            EveryoneDone();
+        }
+        else if (eventsReceived >= 1)
+        {
+            if (!timerStarted)
             {
-                EveryoneDone();
+                Debug.Log("ScoreManager: timer started");
+                timerStarted = true;
+                startTime = Time.time;
             }
-            else if (eventsReceived >= 1)
-            {
-                if (!timerStarted)
+            //when timer = 0
+            Debug.Log("ScoreManager: is time passed? " + ((startTime + decisionTime) == Time.time));
+            if (Time.time >= (startTime + decisionTime)) {
+            //if (startTime > 5f) { 
+                Food target = null;
+                foreach (Food f in DishManager.instance.GetCurrentFood())
                 {
-                    Debug.Log("ScoreManager: timer started");
-                    timerStarted = true;
-                    startTime = Time.time;
+                    if (!f.isTaken && target != null)
+                    {
+                        target = f;
+                    }
                 }
-                //when timer = 0
-                Debug.Log("ScoreManager: is time passed? " + ((startTime + decisionTime) == Time.time));
-                if (Time.time >= (startTime + decisionTime)) {
-                //if (startTime > 5f) { 
-                    Food target = null;
-                    foreach (Food f in DishManager.GetCurrentFood())
-                    {
-                        if (!f.isTaken)
-                        {
-                            target = f;
-                        }
-                    }
-                    //if (target.GetComponent<Renderer>().isVisible)
-                    //{
-                    if (!p1Received)
-                    {
-                        StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
-                        //player1.GetComponent<HandController>().TakeFood(target);
-                    }
-                    if (!p2Received)
-                    {
-                        StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
-                        //player2.GetComponent<HandController>().TakeFood(target);
-                    }
-                    if (!p3Received)
-                    {
-                        StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
-                        //player3.GetComponent<HandController>().TakeFood(target);
-                    }
-                    if (!p4Received)
-                    {
-                        StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
-                        //player4.GetComponent<HandController>().TakeFood(target);
-                    }
-                    //}
+
+                if (!p1Received)
+                {
+                    StartCoroutine(player1.GetComponent<HandController>().Automatic(target));
                 }
+                if (!p2Received)
+                {
+                    StartCoroutine(player2.GetComponent<HandController>().Automatic(target));
+                }
+                if (!p3Received)
+                {
+                    StartCoroutine(player3.GetComponent<HandController>().Automatic(target));
+                }
+                if (!p4Received)
+                {
+                    StartCoroutine(player4.GetComponent<HandController>().Automatic(target));
+                }
+                //}
             }
+        }
         //}
     }
 
