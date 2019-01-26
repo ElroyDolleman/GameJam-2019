@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
-    public float sensitivity = 1;
+    public float movementSensitivity = 1;
+    public float actionSensitivity = 0.8f;
+    private PlayerObject player;
     private int playerID;
 
     private string playerAxisX;
@@ -12,8 +14,12 @@ public class HandController : MonoBehaviour
     private string playerAction;
 
     private Vector3 axisValues;
+    private bool lastAxisState;
 
     private static Camera cam;
+    private FoodInteract foodInteractObject;
+
+    private int lastFrame = 0;
 
     private void Start()
     {
@@ -22,14 +28,16 @@ public class HandController : MonoBehaviour
         playerAxisX = "StickXPlayer" + playerID;
         playerAxisY = "StickYPlayer" + playerID;
         playerAction = "ActionPlayer" + playerID;
+        player = GetComponent<PlayerObject>();
+        foodInteractObject = GetComponent<FoodInteract>();
     }
 
     private void Update()
     {
         //if(gameRunning){
-
+        //Debug.Log("FrameCount: " + Time.frameCount + " at object: " + this.name);
         //Get converted axis values
-        axisValues = new Vector3(Input.GetAxis(playerAxisX) * sensitivity,Input.GetAxis(playerAxisY) * sensitivity, 0);
+        axisValues = new Vector3(Input.GetAxis(playerAxisX) * movementSensitivity,Input.GetAxis(playerAxisY) * movementSensitivity, 0);
 
         //Move the sprite to position
         Vector3 targetPosition = transform.position + axisValues;
@@ -53,6 +61,55 @@ public class HandController : MonoBehaviour
         targetPosition = cam.ViewportToWorldPoint(viewPosition);
         transform.position = targetPosition;
 
+
+        //if ((lastFrame + 1000 <= Time.frameCount)  && (Input.GetButtonDown(playerAction) || GetAxisOnce(playerAction)))
+        //{
+        //    Debug.Log(lastFrame + " frames " + Time.frameCount);
+        //    lastFrame = Time.frameCount;
+        //    Debug.Log(playerAction + "triggered");
+        //    ////check if food is inside collider
+        //    //BoxCollider2D thisCollider =GetComponent<BoxCollider2D>();
+        //    //Collider2D[] colls = Physics2D.OverlapBoxAll(transform.position, new Vector2(thisCollider.size.x * transform.localScale.x, thisCollider.size.y * transform.localScale.y), 0);
+
+        //    //foreach (Collider2D coll in colls)
+        //    //{
+        //    //    Debug.Log(coll.gameObject.name);
+        //    //    if (coll.GetComponent<FoodMiniTestje>()) //if (coll.GetComponent<Food>())
+        //    //    {
+        //    if (foodInteractObject.GetTarget())
+        //        player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
+        //            //break;
+        //    //    }
+        //    //}
+        //}
+
         //} 
+
+        CheckInput();
+    }
+
+    void CheckInput()
+    {
+        if (GetAxisOnce(playerAction))
+        {
+            if (foodInteractObject.GetTarget())
+            {
+                player.AddFood(foodInteractObject.GetTarget().GetComponent<Food>());
+            }
+        }
+    }
+
+    bool GetAxisOnce(string axisName)
+    {
+        bool currentAxisState = Input.GetAxis(axisName) > actionSensitivity;
+
+        if (currentAxisState && lastAxisState)
+        {
+            return false;
+        }
+
+        lastAxisState = currentAxisState;
+
+        return currentAxisState;
     }
 }

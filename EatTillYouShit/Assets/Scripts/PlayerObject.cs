@@ -16,4 +16,10 @@ public class PlayerObject : MonoBehaviour
     {
         return playerID;
     }
+
+    public void AddFood(Food data)
+    {
+        Debug.Log("Player" + playerID + " scored some points");
+        //score = data.score;
+    }
 }
