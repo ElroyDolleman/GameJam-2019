@@ -8,6 +8,8 @@ public class MoanManager : MonoBehaviour
     private PoopMeter poopMeter;
     private AudioSource audioS;
 
+    private bool full = false;
+
     private void Awake()
     {
         poopMeter = GetComponentInParent<PlayerObject>().poopMeter;
@@ -19,8 +21,9 @@ public class MoanManager : MonoBehaviour
         if (poopMeter.GetCurrentPoopValue() >= 16 && poopMeter.GetCurrentPoopValue() <= 16.5f && !audioS.isPlaying)
         {
             audioS.PlayOneShot(clips[Random.Range(0, 2)]);
-        } else if (poopMeter.GetCurrentPoopValue() >= 32 && poopMeter.GetCurrentPoopValue() <= 32.5f && !audioS.isPlaying)
+        } else if (poopMeter.isFull && !full)
         {
+            full = true;
             audioS.PlayOneShot(clips[Random.Range(2, 4)]);
         }
     }
