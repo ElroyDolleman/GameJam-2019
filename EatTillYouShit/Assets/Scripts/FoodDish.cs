@@ -42,6 +42,7 @@ public class FoodDish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.LogWarning(nextIndex);
         switch(currentState)
         {
             case DishStates.serve:
