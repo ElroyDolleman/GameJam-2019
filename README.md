@@ -14,4 +14,4 @@ The theme of this game jam was: **What home means to you?**
 - Jessie Wan
 
 ### Designer
-- Oi-wai Yeu
+- Oi-wai Yiu
