@@ -22,6 +22,8 @@ public class FoodManager : MonoBehaviour
         instance = this;
 
         nextList = foodList;
+
+        Debug.Log(foodList.Count);
     }
 
     public Food GetRandomFood(ref int index)

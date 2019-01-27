@@ -53,11 +53,15 @@ public class PoopMeter : MonoBehaviour
     float shakePoint;
     public bool stayVisible = false;
 
+    AudioSource audioSource;
+
     private void Awake()
     {
         if (poopMeters == null)
             poopMeters = new List<PoopMeter>();
         poopMeters.Add(this);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -179,6 +183,13 @@ public class PoopMeter : MonoBehaviour
 
         fromPoopValue = currentPoopValue;
         easing = 0;
+
+        Invoke("PlayFartSound", 0.3f);
+    }
+
+    public void PlayFartSound()
+    {
+        audioSource.Play();
     }
 
     public float GetCurrentPoopValue()
