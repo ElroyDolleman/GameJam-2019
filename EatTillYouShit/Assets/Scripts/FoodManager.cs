@@ -34,6 +34,7 @@ public class FoodManager : MonoBehaviour
 
     public Food GetFood(int index)
     {
+        index = index % 4;
         return nextList[index];
     }
 

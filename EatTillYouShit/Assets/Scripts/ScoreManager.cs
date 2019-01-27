@@ -59,7 +59,7 @@ public class ScoreManager : MonoBehaviour
         if (PoopMeter.nonPoopers <= 1)
         {
             endScreen.SetActive(true);
-            DishManager.instance.ResetDish();
+            //DishManager.instance.ResetDish();
 
             string playerWon = "Everyone is shitting";
             foreach (PlayerObject p in playerObjectList)
