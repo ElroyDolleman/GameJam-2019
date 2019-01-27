@@ -60,6 +60,8 @@ public class HandController : MonoBehaviour
         //Get converted axis values
         axisValues = new Vector3(Input.GetAxis(playerAxisX) * movementSensitivity,Input.GetAxis(playerAxisY) * movementSensitivity, 0);
 
+        if (scored) axisValues = Vector3.zero;
+
         //Move the sprite to position
         Vector3 targetPosition = transform.position + axisValues;
         Vector3 viewPosition = cam.WorldToViewportPoint(targetPosition);
