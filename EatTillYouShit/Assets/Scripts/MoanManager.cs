@@ -20,11 +20,17 @@ public class MoanManager : MonoBehaviour
     {
         if (poopMeter.GetCurrentPoopValue() >= 16 && poopMeter.GetCurrentPoopValue() <= 16.5f && !audioS.isPlaying)
         {
-            audioS.PlayOneShot(clips[Random.Range(0, 2)]);
-        } else if (poopMeter.isFull && !full)
+            audioS.PlayOneShot(clips[Random.Range(0, 5)]);
+        }
+        else if (poopMeter.GetCurrentPoopValue() >= 24 && poopMeter.GetCurrentPoopValue() <= 24.5f && !audioS.isPlaying)
         {
             full = true;
-            audioS.PlayOneShot(clips[Random.Range(2, 4)]);
+            audioS.PlayOneShot(clips[Random.Range(5, 11)]);
+        }
+        else if (poopMeter.isFull && !full)
+        {
+            full = true;
+            audioS.PlayOneShot(clips[Random.Range(11, 14)]);
         }
     }
 }

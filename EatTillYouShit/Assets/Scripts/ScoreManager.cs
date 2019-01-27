@@ -60,6 +60,17 @@ public class ScoreManager : MonoBehaviour
         {
             //spawn stuff with an event
             endScreen.SetActive(true);
+            string playerWon = "";
+            foreach (PlayerObject p in playerObjectList)
+            {
+                if (!p.poopMeter.isFull)
+                {
+                    playerWon = "Player " + p.playerID + " has won!";
+                    break;
+                }
+            }
+            endScreen.GetComponentInChildren<UnityEngine.UI.Text>().text = playerWon;
+            GetComponent<AudioSource>().Play();
             EventManager.TriggerEvent("GAME_OVER");
         }
         else if (eventsReceived >= PoopMeter.nonPoopers)
