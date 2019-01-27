@@ -7,7 +7,7 @@ The theme of this game jam was: **What home means to you?**
 ## The Team
 ### Programmers
 - Elroy Dolleman
-- Niels de Vries
+- Niels Vriezen
 
 ### Artists
 - Nina Durge
