@@ -82,7 +82,7 @@ public class HandController : MonoBehaviour
         targetPosition = cam.ViewportToWorldPoint(viewPosition);
         transform.position = targetPosition;
 
-        if (!scored && !player.poopMeter.isFull)
+        if (!scored && !player.poopMeter.isFull && PoopMeter.nonPoopers > 1)
         {
             CheckInput();
         } else

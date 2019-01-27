@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
     public int interval = 6;
     public float decisionTime = 5;
     public float waitBetweenDishesTime = 3;
+    public GameObject endScreen;
 
     private int eventsReceived = 0;
 
@@ -47,6 +48,8 @@ public class ScoreManager : MonoBehaviour
         playerObjectList.Add(player2.GetComponent<PlayerObject>());
         playerObjectList.Add(player3.GetComponent<PlayerObject>());
         playerObjectList.Add(player4.GetComponent<PlayerObject>());
+
+        endScreen.SetActive(false);
     }
 
     private void Update()
@@ -56,6 +59,7 @@ public class ScoreManager : MonoBehaviour
         if (PoopMeter.nonPoopers <= 1)
         {
             //spawn stuff with an event
+            endScreen.SetActive(true);
             EventManager.TriggerEvent("GAME_OVER");
         }
         else if (eventsReceived >= PoopMeter.nonPoopers)
