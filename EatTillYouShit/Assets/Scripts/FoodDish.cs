@@ -108,6 +108,7 @@ public class FoodDish : MonoBehaviour
 
     void RandomizeFood()
     {
+        nextIndex = 0;
         FoodManager.instance.ChooseNextRandomMenu();
 
         for (int i = 0; i < PoopMeter.poopMeters.Count; i++)
@@ -164,6 +165,12 @@ public class FoodDish : MonoBehaviour
         // No need to randomize when all foods need to show
         else
         {
+            if (nextIndex >= 4)
+            {
+                Debug.Log("THIS SHOULD NEVER HAPPEN");
+                nextIndex = 0;
+            }
+
             foodPrefab = FoodManager.instance.GetFood(nextIndex);
             nextIndex++;
         }

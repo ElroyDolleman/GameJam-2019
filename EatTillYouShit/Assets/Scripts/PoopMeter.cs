@@ -59,6 +59,9 @@ public class PoopMeter : MonoBehaviour
     {
         if (poopMeters == null)
             poopMeters = new List<PoopMeter>();
+        if (poopMeters.Count == 4)
+            poopMeters.RemoveAt(0);
+
         poopMeters.Add(this);
 
         audioSource = GetComponent<AudioSource>();
