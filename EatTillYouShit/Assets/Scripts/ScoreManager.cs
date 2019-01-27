@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class ScoreManager : MonoBehaviour
     public float decisionTime = 5;
     public float waitBetweenDishesTime = 3;
     public GameObject endScreen;
+    public Image endImage;
+    public Sprite tieScreenSprite;
 
     private int eventsReceived = 0;
 
@@ -74,6 +77,11 @@ public class ScoreManager : MonoBehaviour
             endScreen.GetComponentInChildren<UnityEngine.UI.Text>().text = playerWon;
             GetComponent<AudioSource>().Play();
             EventManager.TriggerEvent("GAME_OVER");
+
+            if (playerWon == "Everyone is shitting")
+            {
+                endImage.sprite = tieScreenSprite;
+            }
         }
         else if (eventsReceived >= PoopMeter.nonPoopers)
         {
