@@ -16,7 +16,7 @@ public class FoodManager : MonoBehaviour
     public bool shouldBruteForce { get { return drinkList.Count >= 4; } }
 
     // Start is called before the first frame update
-    void Awake()
+    void OnEnable()
     {
         if (instance != null) Debug.LogError("There should only be one instance of FoodManager");
         instance = this;

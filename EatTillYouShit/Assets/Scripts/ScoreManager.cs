@@ -58,9 +58,10 @@ public class ScoreManager : MonoBehaviour
         //{
         if (PoopMeter.nonPoopers <= 1)
         {
-            //spawn stuff with an event
             endScreen.SetActive(true);
-            string playerWon = "";
+            DishManager.instance.ResetDish();
+
+            string playerWon = "Everyone is shitting";
             foreach (PlayerObject p in playerObjectList)
             {
                 if (!p.poopMeter.isFull)
@@ -69,6 +70,7 @@ public class ScoreManager : MonoBehaviour
                     break;
                 }
             }
+
             endScreen.GetComponentInChildren<UnityEngine.UI.Text>().text = playerWon;
             GetComponent<AudioSource>().Play();
             EventManager.TriggerEvent("GAME_OVER");

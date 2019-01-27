@@ -17,18 +17,19 @@ public class DishManager : MonoBehaviour
     [SerializeField, Range(0, 10)]
     float maxAnticipationTime = 4f;
 
-    private void OnEnable()
-    {
-        EventManager.StartListening("EVERYONE_DONE", ServeNext);
-    }
+    //private void OnEnable()
+    //{
+    //    EventManager.StartListening("EVERYONE_DONE", ServeNext);
+    //}
 
     private void OnDisable()
     {
         EventManager.StopListening("EVERYONE_DONE", ServeNext);
     }
 
-    private void Awake()
+    private void OnEnable()
     {
+        EventManager.StartListening("EVERYONE_DONE", ServeNext);
         if (instance != null)
             Debug.LogError("There should only be 1 instance of DishManager");
         instance = this;
